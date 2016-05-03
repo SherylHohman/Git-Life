@@ -11,20 +11,23 @@ import RepoSearchResults from'../components/reposearchresults';
 import WiredResults from '../components/wiredResults';
 import UserResults from './userResults';
 import CommitItems from './../components/commitItems';
+import OrgVis from '../components/orgvis';
+import test from '../styles/style.css';
+
 
 
 class Splash extends Component {
   render(){
     return (
+      <h4>Splash Page</h4>
       <div className="splashPage">
-        <h2>Splash Page</h2>
-        <div className="splashPage">
-          <SearchBar searchTerm={this.props.term} onRequest={this.props.actions.searchGitHub} onSearchTermChange={this.props.actions.updateSearchTerm}/>
-          <UserResults results={this.props.results} />
-          <RepoSearchResults results={this.props.results}/>
-          <WiredResults hnresults={this.props.hnResults} searchHN={this.props.actions.searchHN} searchData={this.props.actions.searchData} dataResults={this.props.dataResults} wired={this.props.actions.searchWired} wiredResults={this.props.wiredResults}/>
-          <CommitItems commitData = {this.props.commitData} getCommitData={this.props.actions.getCommitData}/>
-        </div>
+        <SearchBar searchTerm={this.props.term} onRequest={this.props.actions.searchGitHub} onSearchTermChange={this.props.actions.updateSearchTerm}/>
+        <UserResults results={this.props.results} />
+        <RepoSearchResults results={this.props.results}/>
+        <WiredResults hnresults={this.props.hnResults} searchHN={this.props.actions.searchHN} searchData={this.props.actions.searchData} dataResults={this.props.dataResults} wired={this.props.actions.searchWired} wiredResults={this.props.wiredResults}/>
+        <SplashRepos getSplashRepos={this.props.actions.getSplashRepos} repos={this.props.repos}/>
+        <OrgVis orgs={this.props.orgs} getTrendingOrgs={this.props.actions.getTrendingOrgs}/>
+        <CommitItems commitData = {this.props.commitData} getCommitData={this.props.actions.getCommitData}/>
       </div>
     );
   }
@@ -39,6 +42,7 @@ function mapStateToProps(state){
     wiredResults: state.wiredResults,
     dataResults: state.dataResults,
     hnResults: state.hnResults
+    orgs: state.orgs,
   };
 }
 
@@ -49,3 +53,4 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Splash);
+
