@@ -7,7 +7,6 @@ const GITHUB_ROOT = 'https://api.github.com/';
 const SECRET_URL  = '&client_id=' + SECRET.id + '&client_secret=' + SECRET.secret;
 
 
-
 module.exports = function(req, res){
 
     var endpoint = 'search/issues?q=';
@@ -22,7 +21,7 @@ module.exports = function(req, res){
             console.log('Error: ', error);
           }
 
-          fs.writeFile(__dirname + '/../storage/commits.txt', JSON.stringify(body), (err) => {
+          fs.writeFile(__dirname + '/../storage/commitsDataTemp.txt', JSON.stringify(body), (err) => {
             if(err){
               console.log('fs.writeFile error in server/splash/commitsController.js', err);
             }
