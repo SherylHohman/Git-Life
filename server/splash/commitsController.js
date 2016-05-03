@@ -8,38 +8,50 @@ const SECRET_URL  = '&client_id=' + SECRET.id + '&client_secret=' + SECRET.secre
 
 module.exports = function(req, res){
 
-    // var gitRequest = 'size:>1000&pushed=>2016-4-25&sort=stars&order=desc'
-    // //var query = req.query.searchTerm;
-    // var query = 'search/repositories?q=react-redux';
-
-    // get latest issues
-    // var date
+    var oneDay = 86400000;
+    var yesterday = Date.now() - oneDay;
+    var yesterdayStr = yesterday.getFullYear + '-'+ yesterday.getDate + '-' + yesterday.getDay;
 
     var endpoint = 'search/issues?q=';
-    var params = 'react in:body updated:>=2013-02-01';
-
-    request({
+    var keyword = 'react in:body';
+    var since = 'updated:<=' + yesterdayStr; //+ today.toISOString();
+    var params = keyword + since;
 
       // use the public API for now instead
-      // uri:  GITHUB_ROOT + gitRequest + query + SECRET_URL,
-      uri:     GITHUB_ROOT + endpoint + params,
-      method:  'GET',
+      // uri:     GITHUB_ROOT + endpoint + params, // + SECRET_URL,
+    request(
+      {
+        uri:     GITHUB_ROOT + endpoint + params,
+        method:  'GET',
 
-      headers: {'user-agent': 'node.js'}
-      }, function (error, response, body) {
-          if(error){
-            console.log('Error: ', error);
+        headers: {'user-agent': 'node.js'}
+      },
+      function (error, response, body) {
+        if(error){
+          console.log('error in server/splash/commitsController.js: ', error);
+        }
+
+        fs.writeFile(__dirname + '/../storage/commits.txt', JSON.stringify(body), (err) => {
+          if(err){
+            console.log('fs.writeFile error in server/splash/commitsController.js', err);
           }
-
-          fs.writeFile(__dirname + '/../storage/commits.txt', JSON.stringify(body), (err) => {
-            if(err){
-              console.log('fs.writeFile error in server/splash/commitsController.js', err);
-            }
-          timeOfLastGitRequest = new Date();
         });
+
         res.send(JSON.parse(body).items);
-      });
+      }
+    );
+
+
+      function saveResultsToFile(){
+        fs.writeFile(__dirname + '/../storage/commits.txt', JSON.stringify(body), (err) => {
+          if(err){
+            console.log('fs.writeFile error in server/splash/commitsController.js', err);
+          }
+        });
+      }
+
   }
+
 
   // Top 7 languages
   // total issues in each language added this week
