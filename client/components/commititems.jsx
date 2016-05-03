@@ -7,7 +7,7 @@ export default class CommitItems extends Component {
   }
 
   showCommitData(){
-    // makes data available to CommitItem Component
+    // this makes data available to the CommitItem Component
     return _.reduce(this.props.commitData, (accum, item)=>{
       var tagsThisItem = '';
       for(var i = 0; i < item.labels.length; i++) {
@@ -17,8 +17,10 @@ export default class CommitItems extends Component {
       let html = (
         <CommitItem commitTime={item.updated_at} repo_url={item.html_url} tags={tagsThisItem} key={item.id}/>
       );
+
       accum.push(html);
       return accum;
+
     }, []);
   }
 

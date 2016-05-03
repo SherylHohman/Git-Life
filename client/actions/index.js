@@ -31,9 +31,11 @@ export function getSplashRepos(){
 
 export const COMMIT_DATA = 'COMMIT_DATA';
 export function getCommitData(){
-  // add searchTerm parameter if want to base results on this,
-  // and also add searchTerm as a 'params' object
-  var commits = Axios.get('/splash/commitData', {
+  // if want to update results after user enters a searchTerm
+  // add searchTerm as a parameter
+  // and add search term to params object
+
+   var results = Axios.get('/splash/commitData', {
       params: {
       }
   });
@@ -80,3 +82,4 @@ export function searchHN(){
   }
 
 }
+
