@@ -7,21 +7,7 @@ const GITHUB_ROOT = 'https://api.github.com/';
 const SECRET_URL  = '&client_id=' + SECRET.clientID + '&client_secret=' + SECRET.clientSecret;
 console.log('in the commitsController file..');
 
-// var   timeOfLastGitRequest = null;
-// const ONE_DAY_SECONDS = 86400000;
-// const DEV_TIMEOUT = 1000; // milisec
-
 module.exports = function(req, res){
-
-  // return early if we've already made an API request today
-  // console.log('in commitsController');
-  // if ( (timeOfLastGitRequest !== null) &&
-  //      (((Date.now() - timeOfLastGitRequest) < DEV_TIMEOUT))) {
-  //   console.log('early return from  commitsController.js');
-  //   res.send(JSON.parse({}));
-
-  //   return;
-  // }
 
   // Query API
 
@@ -29,28 +15,22 @@ module.exports = function(req, res){
     // //var query = req.query.searchTerm;
     // var query = 'search/repositories?q=react-redux';
 
-    // works using Alex's query string
-    // var query = 'search/repositories?q=react';   // Alex/s query works !
-
-    // var query = 'events';
-    // https://github.com/search?l=javascript&q=stars%3A%3E1&s=updated&type=Repositories
-    // var endpoint = 'search/repositories?q=';
+    // get latest issues
+    // var date
     var endpoint = 'search/issues?q=';
     var params = 'react in:body updated:>=2013-02-01';
-    console.log('about to create request (comitsController.js)');
-    // endpoint = ''
-
 
     request({
-      // uri:    GITHUB_ROOT + gitRequest + query + SECRET_URL,
-      // right now just use the public API - above is my key, which got rate limited
-      // uri:    GITHUB_ROOT + endpoint + params,
+
       // uri: "https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}\",
       // uri: "https://api.github.com/search/repositories",//?q=updated:>=2016-04-28", //{&page,per_page,sort,order}\",
       // uri: 'https://github.com/search?l=javascript&q=stars>1&s=updated&type=Repositories',
       // https://github.com/search?utf8=%E2%9C%93&q=javascript+pushed%3A%3E2016-04-28&type=Repositories&ref=searchresults
-      uri: GITHUB_ROOT + endpoint + params,
-      method: 'GET',
+
+      // use the public API for now instead
+      // uri:  GITHUB_ROOT + gitRequest + query + SECRET_URL,
+      uri:     GITHUB_ROOT + endpoint + params,
+      method:  'GET',
       headers: {'user-agent': 'node.js'}
       }, function (error, response, body) {
         console.log('in function body (commitsController.js)');
@@ -75,7 +55,10 @@ module.exports = function(req, res){
       });
   }
 
-
+  // Top 7 languages
+  // total issues in each language added this week
+  // then drill down: tags, by day of week, by word cloud on issue header
+  //  or number or number of comments. or open vs closed vs fixed
 
 /*
 How many issues do Ruby developers create each day?
