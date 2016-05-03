@@ -31,9 +31,9 @@ export function getSplashRepos(){
 
 export const COMMIT_DATA = 'COMMIT_DATA';
 export function getCommitData(){
-  // if want to update results after user enters a searchTerm
   // add searchTerm as a parameter
   // and add search term to params object
+  // to get results after user enters a searchTerm
 
    var results = Axios.get('/splash/commitData', {
       params: {
