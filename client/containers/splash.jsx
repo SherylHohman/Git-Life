@@ -3,11 +3,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import SearchBar from './searchbar';
-import SearchResults from'../components/searchresults';
+import SearchResults from'../components/reposearchresults';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as Actions from '../actions';
-import CommitItems from './../components/commit_items';
+import CommitItems from './../components/commitItems';
 
 
 class Splash extends Component {
