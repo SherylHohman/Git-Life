@@ -6,7 +6,7 @@ import RepoSearchResults from'../components/reposearchresults';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as Actions from '../actions';
-import CommitItems from '../components/commititems';
+import CommitItems from '../components/commitItems';
 import WiredResults from '../components/wiredResults';
 import UserResults from './userResults';
 
