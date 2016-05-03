@@ -18,7 +18,7 @@ module.exports = function(req, res){
     var since = 'updated:<=' + yesterdayStr; //+ today.toISOString();
     var params = keyword + since;
 
-      // use the public API for now instead
+      // temp use the public API instead of this one..
       // uri:     GITHUB_ROOT + endpoint + params, // + SECRET_URL,
     request(
       {
