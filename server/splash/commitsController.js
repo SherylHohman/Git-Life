@@ -39,12 +39,12 @@ module.exports = function(req, res){
     );
 
 
-      function saveResultsToFile(){
-        fs.writeFile(__dirname + '/../storage/commitsDataTemp.txt', JSON.stringify(body), (err) => {
-          if(err){
-            console.log('fs.writeFile error in server/splash/commitsController.js', err);
-          }
-        });
-      }
+    function saveResultsToFile(){
+      fs.writeFile(__dirname + '../storage/commitsDataTemp.txt', JSON.stringify(body), (err) => {
+        if(err){
+          console.log('fs.writeFile error in server/splash/commitsController.js', err);
+        }
+      });
+    }
 
   }
