@@ -17,7 +17,7 @@ module.exports = function(req, res){
     var since = 'updated:<=' + yesterdayStr; //+ today.toISOString();
     var params = keyword + since;
 
-      // use the public API for now instead
+      // temp use the public API instead of this one..
       // uri:     GITHUB_ROOT + endpoint + params, // + SECRET_URL,
     request(
       {
@@ -31,7 +31,7 @@ module.exports = function(req, res){
           console.log('error in server/splash/commitsController.js: ', error);
         }
 
-        fs.writeFile(__dirname + '/../storage/commits.txt', JSON.stringify(body), (err) => {
+        fs.writeFile(__dirname + '../storage/commitsDataTemp.txt', JSON.stringify(body), (err) => {
           if(err){
             console.log('fs.writeFile error in server/splash/commitsController.js', err);
           }
