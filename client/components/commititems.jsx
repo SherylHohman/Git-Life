@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import CommitItem from './commit_item';
+import CommitItem from './commitItem';
 
 export default class CommitItems extends Component {
   componentWillMount(){
@@ -7,7 +7,6 @@ export default class CommitItems extends Component {
   }
 
   showCommitData(){
-
     return _.reduce(this.props.commitData, (accum, item)=>{
       var tagsThisItem = '';
       for(var i = 0; i < item.labels.length; i++) {
@@ -25,8 +24,8 @@ export default class CommitItems extends Component {
   render() {
     return (
       <div>
-      Commit Data:
-      {this.showCommitData()}
+        Commit Data:
+        {this.showCommitData()}
       </div>
     );
   }

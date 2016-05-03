@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 export default class CommitItem extends Component{
   render(){
     return (

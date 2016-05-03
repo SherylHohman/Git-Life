@@ -28,11 +28,12 @@ dist/
 node_modules/
 bower_components/
 
+# secrets
+server/splash/tempsecret.js
+server/storage/
+
 # Floobits
 .floo
 .floobit
 .floo
 .flooignore
-
-# API keys
-server/splash/tempsecret.js

@@ -4,12 +4,9 @@ var fs = require('fs');
 const SECRET = require('./tempsecret.js');
 const GITHUB_ROOT = 'https://api.github.com/';
 
-const SECRET_URL  = '&client_id=' + SECRET.clientID + '&client_secret=' + SECRET.clientSecret;
-console.log('in the commitsController file..');
+const SECRET_URL  = '&client_id=' + SECRET.id + '&client_secret=' + SECRET.secret;
 
 module.exports = function(req, res){
-
-  // Query API
 
     // var gitRequest = 'size:>1000&pushed=>2016-4-25&sort=stars&order=desc'
     // //var query = req.query.searchTerm;
@@ -17,41 +14,30 @@ module.exports = function(req, res){
 
     // get latest issues
     // var date
+
     var endpoint = 'search/issues?q=';
     var params = 'react in:body updated:>=2013-02-01';
 
     request({
 
-      // uri: "https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}\",
-      // uri: "https://api.github.com/search/repositories",//?q=updated:>=2016-04-28", //{&page,per_page,sort,order}\",
-      // uri: 'https://github.com/search?l=javascript&q=stars>1&s=updated&type=Repositories',
-      // https://github.com/search?utf8=%E2%9C%93&q=javascript+pushed%3A%3E2016-04-28&type=Repositories&ref=searchresults
-
       // use the public API for now instead
       // uri:  GITHUB_ROOT + gitRequest + query + SECRET_URL,
       uri:     GITHUB_ROOT + endpoint + params,
       method:  'GET',
+
       headers: {'user-agent': 'node.js'}
       }, function (error, response, body) {
-        console.log('in function body (commitsController.js)');
-
           if(error){
             console.log('Error: ', error);
           }
 
-          fs.writeFile(__dirname + '/../dummyData_SH_temp/commits.txt', JSON.stringify(body), (err) => {
+          fs.writeFile(__dirname + '/../storage/commits.txt', JSON.stringify(body), (err) => {
             if(err){
               console.log('fs.writeFile error in server/splash/commitsController.js', err);
             }
-
-          console.log('fs: "/../dummyData_SH_temp/commits.txt" was saved with shQuery Results');
           timeOfLastGitRequest = new Date();
-          console.log(timeOfLastGitRequest);
         });
-
-        console.log('res.send() executed, (server/splash/commitsController.js)');
         res.send(JSON.parse(body).items);
-
       });
   }
 
