@@ -2,11 +2,14 @@
 /*   when our app had only this one (splash) page - and before we added routes.js */
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import SearchBar from './searchbar';
-import SearchResults from'../components/reposearchresults';
-import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import * as Actions from '../actions';
+import SearchBar from './searchbar';
+import SplashRepos from './container_splash_repos';
+import RepoSearchResults from'../components/reposearchresults';
+import WiredResults from '../components/wiredResults';
+import UserResults from './userResults';
 import CommitItems from './../components/commitItems';
 
 
@@ -14,12 +17,12 @@ class Splash extends Component {
   render(){
     return (
       <div className="splashPage">
-      <h2>Splash Page</h2>
-        <div>
+        <h2>Splash Page</h2>
+        <div className="splashPage">
           <SearchBar searchTerm={this.props.term} onRequest={this.props.actions.searchGitHub} onSearchTermChange={this.props.actions.updateSearchTerm}/>
-          <SearchResults results={this.props.results}/>
-        </div>
-        <div className="commits">
+          <UserResults results={this.props.results} />
+          <RepoSearchResults results={this.props.results}/>
+          <WiredResults hnresults={this.props.hnResults} searchHN={this.props.actions.searchHN} searchData={this.props.actions.searchData} dataResults={this.props.dataResults} wired={this.props.actions.searchWired} wiredResults={this.props.wiredResults}/>
           <CommitItems commitData = {this.props.commitData} getCommitData={this.props.actions.getCommitData}/>
         </div>
       </div>
@@ -27,12 +30,15 @@ class Splash extends Component {
   }
 }
 
-
 function mapStateToProps(state){
   return {
     results: state.results,
     term: state.searchTerm,
-    commitData: state.commitData
+    repos: state.splashRepos,
+    commitData: state.commitData,
+    wiredResults: state.wiredResults,
+    dataResults: state.dataResults,
+    hnResults: state.hnResults
   };
 }
 
