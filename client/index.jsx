@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/app';
 import configureStore from './store/configureStore';
 import {Provider} from 'react-redux';
 
-const store = configureStore();
+/* browserHistory specifies which part of the URL react cares about */
+import {Router, browserHistory} from 'react-router';
 
+import routes from './routes';
+
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
-  </Provider>,
-    document.getElementById('app')
+    <Router history={browserHistory} routes={routes} />
+  </Provider>, document.getElementById('app')
 );
+
+/* App is now imported and rendered in routes.js*/
