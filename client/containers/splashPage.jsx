@@ -21,13 +21,13 @@ class SplashPage extends Component {
     return (
       <h4>Splash Page</h4>
       <div className="splashPage">
-        <SearchBar searchTerm={this.props.term} onRequest={this.props.actions.searchGitHub} onSearchTermChange={this.props.actions.updateSearchTerm}/>
+        <SearchBar searchTerm={this.props.term} onRequest={this.props.actions.searchGitHub} onSearchTermChange={this.props.actions.updateSearchTerm} />
         <UserResults results={this.props.results} />
-        <RepoSearchResults results={this.props.results}/>
-        <WiredResults hnresults={this.props.hnResults} searchHN={this.props.actions.searchHN} searchData={this.props.actions.searchData} dataResults={this.props.dataResults} wired={this.props.actions.searchWired} wiredResults={this.props.wiredResults}/>
-        <SplashRepos getSplashRepos={this.props.actions.getSplashRepos} repos={this.props.repos}/>
-        <OrgVis orgs={this.props.orgs} getTrendingOrgs={this.props.actions.getTrendingOrgs}/>
-        <CommitItems commitData = {this.props.commitData} getCommitData={this.props.actions.getCommitData}/>
+        <RepoSearchResults results={this.props.results} />
+        <WiredResults hnresults={this.props.hnResults} searchHN={this.props.actions.searchHN} searchData={this.props.actions.searchData} dataResults={this.props.dataResults} wired={this.props.actions.searchWired} wiredResults={this.props.wiredResults} />
+        <SplashRepos getSplashRepos={this.props.actions.getSplashRepos} repos={this.props.repos} />
+        <OrgVis orgs={this.props.orgs} getTrendingOrgs={this.props.actions.getTrendingOrgs} />
+        <CommitItems commitData = {this.props.commitData} getCommitData={this.props.actions.getCommitData} />
       </div>
     );
   }
