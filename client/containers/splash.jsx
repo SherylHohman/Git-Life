@@ -1,7 +1,6 @@
 /* This file now contains most of the code that was in app.jsx, */
 /*   when our app had only this one (splash) page - and before we added routes.js */
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from '../actions';
@@ -41,8 +40,8 @@ function mapStateToProps(state){
     commitData: state.commitData,
     wiredResults: state.wiredResults,
     dataResults: state.dataResults,
-    hnResults: state.hnResults
-    orgs: state.orgs,
+    hnResults: state.hnResults,
+    orgs: state.orgs
   };
 }
 
@@ -53,4 +52,5 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Splash);
+// export default connect(mapStateToProps, Actions)(Splash);
 
