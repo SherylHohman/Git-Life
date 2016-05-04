@@ -3,7 +3,6 @@ var fs = require('fs');
 
 const SECRET = require('./tempsecret.js');
 const SECRET_URL  = '&client_id=' + SECRET.id + '&client_secret=' + SECRET.secret;
-
 const GITHUB_ROOT = 'https://api.github.com/';
 
 
@@ -24,7 +23,6 @@ module.exports = function(req, res){
       {
         uri:     GITHUB_ROOT + endpoint + params,
         method:  'GET',
-
         headers: {'user-agent': 'node.js'}
       },
       function (error, response, body) {
