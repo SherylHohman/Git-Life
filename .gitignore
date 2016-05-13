@@ -28,8 +28,16 @@ dist/
 node_modules/
 bower_components/
 
+# secrets
+server/splash/tempsecret.js
+server/storage/
+gitalytics-5f17b3312e53.json
+
 # Floobits
 .floo
 .floobit
 .floo
 .flooignore
+
+# Git API Auth
+server/splash/tempsecret.js
