@@ -1,7 +1,14 @@
 var path = require('path');
 var request = require('request');
-var secret = require('../splash/tempsecret.js');
 var userParse = require('./userController.js');
+var secret = {};
+if(process.env.NODE_ENV === 'development'){
+  secret = require('../splash/tempsecret.js');
+}
+else if(process.env.NODE_ENV === 'production'){
+  secret.id= process.env.GIT_ID;
+  secret.secret= process.env.GIT_KEY;
+}
 
 
 var root = 'https://api.github.com/';
@@ -17,6 +24,20 @@ function gitHTTP(method, reqString, cb){
   }, cb);
 }
 
+function filterByLanguage(body, lang) {
+  var filteredRepos = [];
+  if(body.items){
+    for(var i = 0; i < body.items.length; i++){
+      //console.log(body.items[i].language);
+      if(body.items[i].language && 
+        (lang && (body.items[i].language.toLowerCase() === lang.toLowerCase() || lang === 'All'))){
+        filteredRepos.push(body.items[i]);
+      }
+    }
+  }
+  return filteredRepos;
+}
+
 module.exports = {
 	getRepos: function (req, res) {
 		var query = req.query.searchTerm;
@@ -25,7 +46,8 @@ module.exports = {
 			if(error){
         console.log('Error: ', error);
       }
-      userParse(body, res);
+      var newBody = filterByLanguage(JSON.parse(body), req.query.language);
+      userParse(newBody, res);
 		});
 	},
 	getUsers: function (req, res) {
@@ -61,7 +83,7 @@ module.exports = {
 	getIssues: function (req, res) {
     var query = req.query.searchTerm;
     request({
-      uri: root + 'search/issues?q=' + query,
+      uri: root + 'search/issues?q=' + query + 'state:open',
       method: 'GET',
       header: {'user-agent': 'node.js'}
     }, function(error, response, body){
@@ -70,6 +92,6 @@ module.exports = {
       }
       res.send(JSON.parse(body).items);
     });
-	},
+	}
 
 };

@@ -1,12 +1,33 @@
 import React, {Component} from 'react';
 
+
 export default class SearchItem extends Component{
+
+  constructor(props){
+    super(props);
+  }
+
+  selectARepo(){
+    this.props.selectRepo(this.props.thisRepoIs);
+    this.props.openModal();
+  }
+
   render(){
     return (
-      <div>
-        <p><a href={this.props.repoUrl}>{this.props.description}</a></p>
-        <p><a href={this.props.issuesUrl}>{this.props.issues}</a></p>
-      </div>
-    );
+      <li className='collection-item blue-grey lighten-5 '>
+        <span className='title'>
+          <a href='javascript:void(0)'
+            onClick={()=>{this.selectARepo()}} >
+            {this.props.name}
+          </a>
+        </span>
+        <span className='secondary-content'>
+          Issues: {this.props.openIssues}
+        </span>
+        <p>{this.props.description}</p>
+
+
+      </li>
+  );
   }
 }

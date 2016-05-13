@@ -1,6 +1,16 @@
-var secret = require('../splash/tempsecret.js');
 var request = require('request');
 var async = require('async');
+var orgParse = require('./orgController.js');
+var secret = {};
+if(process.env.NODE_ENV === 'development'){
+  secret = require('../splash/tempsecret.js');
+}
+else if(process.env.NODE_ENV === 'production'){
+  secret.id= process.env.GIT_ID;
+  secret.secret= process.env.GIT_KEY;
+  console.log(secret.id, secret.secret);
+}
+
 
 var secretURL = '&client_id=' + secret.id + '&client_secret=' + secret.secret;
 
@@ -12,17 +22,18 @@ function gitHTTP(method, reqString, cb){
   }, cb);
 }
 
-var userObj = {};
 
 module.exports = function(body, res){
-  var items =   JSON.parse(body).items;
-  items = items.slice(0, 10);
+  var items =   body;
+  var itemGroup = items.slice(0, 10);
+  var userObj = {};
 
-  async.forEachOf(items, function (value, key, callback) {
-    gitHTTP('GET', items[key].contributors_url + '?', function(err, response, contributors){
+  async.forEachOf(itemGroup, function (value, key, callback) {
+    gitHTTP('GET', itemGroup[key].contributors_url + '?', function(err, response, contributors){
       if(err){
         return callback(err);
       }
+
       contributors = JSON.parse(contributors);
       contributors.forEach(function(element, index){
         if (userObj[element.login]){
@@ -33,14 +44,13 @@ module.exports = function(body, res){
           userObj[element.login] = {
             name : element.login,
             id: element.id,
-            url: element.url,
+            html_url: element.html_url,
             count: 1,
             contributions: element.contributions
           }
         }
       });
       callback();
-
     });
   }, function (err) {
       if (err) console.error(err.message);
@@ -51,7 +61,6 @@ module.exports = function(body, res){
         contributors: userArr
       }
 
-      res.send(sendObj);
-  })
-
+      orgParse.getOrgs(sendObj, res);
+  });
 };

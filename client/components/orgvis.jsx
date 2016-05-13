@@ -22,7 +22,7 @@ export default class OrgVis extends Component {
       segmentShowStroke : true,
       segmentStrokeColor : "#fff",
       segmentStrokeWidth : 2,
-      percentageInnerCutout : 50,
+      percentageInnerCutout : 0,
       animationSteps : 100,
       animationEasing : "easeOutBounce",
       animateRotate : true,
@@ -56,10 +56,19 @@ export default class OrgVis extends Component {
 
   populateResults() {
     //console.log('populateResults: ', this.props.orgs.data);
-    return _.reduce(this.props.orgs.data, (accum, item) => {
+    return _.reduce(this.props.orgs.data, (accum, item, key) => {
 
       let html = (
-        <SearchItem description={item.org} repo_url={item.url} key={item.key}/>
+        <div className="orgs" key={item.key}  style={{margin:'20px 20px 20px 20px'}}>
+        <div >
+          <a href={item.url}  target='_blank'>
+            <ul>
+              <img className='imgTrendOrg' src={item.avatar} alt='org avatar' />
+              <div className='truncate'>{" " + item.org + " "}</div>
+            </ul>
+          </a>
+        </div>
+        </div>
       );
       accum.push(html);
       return accum;
@@ -68,10 +77,12 @@ export default class OrgVis extends Component {
 
   render() {
     return (
-      <div className='orgvis'>
-        Org Results!
-        {this.drawChart()}
-        {this.populateResults()}
+      <div>
+        <ul>
+          <h5>Trending Organizations</h5>
+          <a >{this.drawChart()}</a>
+          {this.populateResults()}
+        </ul>
       </div>
     )
   }

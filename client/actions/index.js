@@ -8,10 +8,11 @@ export function updateSearchTerm(searchTerm = null){
   }
 }
 export const REQUEST_GIT = 'REQUEST_GIT';
-export function searchGitHub(searchTerm){
+export function searchGitHub(searchParams){
   var results = Axios.get('/search/repos', {
       params: {
-        searchTerm: searchTerm
+        searchTerm: searchParams.searchTerm,
+        language: searchParams.language
       }
   });
   return {
@@ -19,13 +20,35 @@ export function searchGitHub(searchTerm){
     payload: results
   }
 }
+export const UPDATE_NAV_BUTTON = 'UPDATE_NAV_BUTTON';
+export function updateNavButton(navButton = null){
+  return {
+    type: UPDATE_NAV_BUTTON,
+    navButton
+  }
+}
 export const ORGVIS_REQUEST = 'ORGVIS_REQUEST';
 export function getTrendingOrgs(){
-  var orgs = Axios.get('/splash/orgs', {
-  });
+  var orgs = Axios.get('/splash/orgs', {});
   return {
     type: ORGVIS_REQUEST,
     payload: orgs
+  }
+}
+export const NEWREPOS_REQUEST = 'NEWREPOS_REQUEST';
+export function getNewRepos(){
+  var newRepos = Axios.get('/splash/newRepos', {});
+  return {
+    type: NEWREPOS_REQUEST,
+    payload: newRepos
+  }
+}
+export const NEWORGS_REQUEST = 'NEWORGS_REQUEST';
+export function getNewOrgs(){
+  var newOrgs = Axios.get('/splash/newOrgs', {});
+  return {
+    type: NEWORGS_REQUEST,
+    payload: newOrgs
   }
 }
 export const GET_SPLASH_REPOS = 'GET_SPLASH_REPOS';
@@ -74,13 +97,28 @@ export function searchData(){
 }
 export const REQUEST_HN = 'REQUEST_HN';
 export function searchHN(){
-  var hnResults = Axios.get('/splash/rsshn', {
-      params: {
-
-      }
-  });
+  var hnResults = Axios.get('/splash/rsshn');
   return {
     type: REQUEST_HN,
     payload: hnResults
+  }
+}
+export const SELECT_REPO = 'SELECT_REPO';
+export function selectRepo(selectedRepo = null){
+  return {
+    type: SELECT_REPO,
+    payload: selectedRepo
+  }
+}
+export const GET_ISSUES = 'GET_ISSUES';
+export function getIssues(selectedRepo){
+  var issues = Axios.get('/learn/issues', {
+      params: {
+        issuesURL: selectedRepo
+      }
+  });
+  return{
+    type: GET_ISSUES,
+    payload: issues
   }
 }

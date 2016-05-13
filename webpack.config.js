@@ -9,15 +9,25 @@ const webpackConfig = {
   devtool: "cheap-module-source-map",
   entry: [path.resolve(ROOT_PATH, 'client/index.jsx')],
   module: {
-    loaders: [{
-      test: /\.(js|jsx)?$/,
-      exclude: /node_modules/,
-      loader: 'babel'
-    },
+    loaders: [
+      {
+        test: /\.(js|jsx)?$/,
+        exclude: /node_modules/,
+        loader: 'babel'
+      },
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
-      }]
+      },
+      {
+        test: /\.(woff2?|svg)$/,
+        loader: 'url?limit=10000'
+      },
+      {
+        test: /\.(ttf|eot)$/,
+        loader: 'file'
+      }
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -30,8 +40,10 @@ const webpackConfig = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
       template: 'index.html'
-    })
-  ]
+    }),
+  ],
+  externals: {jquery: "jQuery"}
+
 };
 
 if (process.env.NODE_ENV === 'development'){

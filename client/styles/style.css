@@ -1,7 +1,185 @@
-.news-widget{
-  max-width: 300px;
+.imgTrendOrg {
+  width: 30px;
+  margin: 10px 10px 10px 10px;
 }
+
+.inputSearch {
+  margin: auto;
+  width: 50%;
+}
+
+
 
 .orgvis {
   background-color: #F6F6F6;
+}
+
+.imgOrg {
+  width: 30px;
+}
+
+.aOrg {
+  padding-left: 10px;
+  font-size: 1.7em;
+  display: inline;
+}
+
+.sort {
+  padding-left: 10px;
+}
+
+.divNewRepos {
+  display: block;
+}
+
+.imgNewOrg {
+  max-width: 100px;
+}
+
+.searchbar {
+  height: 40px;
+  background-color: white;
+  border-radius: 40px;
+  border: 1px solid silver;
+}
+
+.btnSearch {
+
+}
+
+.selectLang {
+  display: inline;
+}
+
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+	border-right:0;
+	box-shadow:0 0 0;
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
+
+/*Search Categories Styles Below */
+/* Grow */
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    margin: 4px 4px 4px 4px;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus{
+    transform: scale(1.3);
+}
+.hvr-grow:active {
+  transform: scale(.8);
+}
+.categories-column{
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 10px 10px 10px !important;
+  padding: 5px 5px 5px 5px;
+  width:280px;
+  height: 140px;
+  position: relative;
+  border-radius: 10px !important;
+}
+.category-title{
+  width:280px;
+  height: 140px;
+  text-align: center;
+  margin-top: 50px;
+
+}
+/*Cards */
+
+
+.repoName {
+  text-align: center;
+  font-size: 18px;
+  display: inline;
+
+}
+.repoName a{
+  color: grey;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  display: inline;
+  margin-right: 20px;
+}
+body{
+  background: #f5f5f5;
+  font-family: Roboto;
+}
+
+.lang{
+  font-style: italic;
+  font-size: 10px;
+  display: inline;
+  margin-left: 20px;
+}
+
+.topRepoSection{
+  max-width: 400px !important;
+    color: grey;
+    display: inline;
+
+
+}
+.newRepoSection{
+  max-width: 400px !important;
+  color: grey;
+  display: inline;
+
+}
+
+.num{
+  display: inline-block;
+  padding: 10px 10px 10px 10px;
+  width: 30px !important;
+  font-size: 15px;
+}
+.stars{
+  display: inline;
+  font-size: 10px;
+  height: 12px;
+}
+.orgs{
+  width: 400px !important;
+  display: inline;
+}
+.news{
+  min-width: 7rem;
+  margin-top: 65px;
+}
+
+.trendsNav{
+  margin-top: 60px;
+}
+.splash{
+  margin-top: 20px;
+}
+.newsArticle{
+  line-height: 30px;
+  margin: 10px 10px 10px 10px;
+}
+.headingTitle{
+  float: center;
+}
+.chips{
+  padding: 20px 20px 20px 20px;
+}
+.categoryTitle{
+  color: white;
 }

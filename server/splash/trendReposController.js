@@ -1,7 +1,14 @@
 var request = require('request');
 var root = 'https://api.github.com/';
-var secret = require('./tempsecret.js');
 var fs = require('fs');
+var secret = {};
+if(process.env.NODE_ENV === 'development'){
+  secret = require('./tempsecret.js');
+}
+else if(process.env.NODE_ENV === 'production'){
+  secret.id= process.env.GIT_ID;
+  secret.secret= process.env.GIT_KEY;
+}
 
 var secretURL = '&client_id=' + secret.id + '&client_secret=' + secret.secret;
 var gitRequest = 'search/repositories?q=size:>1000&pushed=>2016-4-25&sort=stars&order=desc'
@@ -29,13 +36,31 @@ module.exports = function(req, res){
         for(var i = 0; i < 10; i++){
           //find out which had most commits today
           (function(hold, cb){
+
             var currentRepo = JSON.parse(body).items[hold];
             var commitsURL = currentRepo.commits_url;
             commitsURL = commitsURL.slice(0, commitsURL.length - 6);
             repoStorage[hold] = {};
             repoStorage[hold].name = currentRepo.name;
-            repoStorage[hold].url = currentRepo.url;
+            repoStorage[hold].description = currentRepo.description;
+            repoStorage[hold].html_url = currentRepo.html_url;
+            repoStorage[hold].stargazers = currentRepo.stargazers_count;
+            repoStorage[hold].open_issues = currentRepo.open_issues;
             repoStorage[hold].language = currentRepo.language;
+            repoStorage[hold].full_name = currentRepo.full_name;
+            repoStorage[hold].html_url = currentRepo.html_url;
+            repoStorage[hold].description = currentRepo.description;
+            if(currentRepo.homepage){
+              repoStorage[hold].homepage = currentRepo.homepage;
+            }
+            repoStorage[hold].stargazers_count = currentRepo.stargazers_count;
+            repoStorage[hold].watchers_count = currentRepo.watchers_count;
+            repoStorage[hold].created_at = currentRepo.created_at;
+            repoStorage[hold].updated_at = currentRepo.updated_at;
+            repoStorage[hold].open_issues = currentRepo.open_issues;
+            repoStorage[hold].forks = currentRepo.forks;
+            repoStorage[hold].size = currentRepo.size;
+
             var compareDate = new Date();
             compareDate.setDate(compareDate.getDate() - 1);
 
@@ -50,7 +75,6 @@ module.exports = function(req, res){
                 if(err){
                   console.log(err);
                 }
-                console.log('file was saved');
                 lastTimeChecked = new Date();
                 if(hold === 9){
                   cb(repoStorage);
@@ -72,7 +96,6 @@ module.exports = function(req, res){
   }
 
   function afterTheIf(sendMe){
-    console.log('file sent');
     res.send(sendMe);
   }
 };
